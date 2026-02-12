@@ -3,78 +3,347 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Love for SIE Group</title>
+    <title>Love for SIE</title>
     <style>
-        body {
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            width: 100%;
+            height: 100vh;
             overflow: hidden;
-            background: linear-gradient(135deg, #FFB6C1, #FF69B4);
-            animation: backgroundAnimation 10s infinite alternate;
-            font-family: Arial, sans-serif;
-            color: #333;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #FFB6D9 0%, #FFC0E3 25%, #FFD4E5 50%, #FFE0EB 75%, #FFF0F5 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: softGlow 8s ease-in-out infinite;
         }
-        @keyframes backgroundAnimation {
-            0% { background: #FFB6C1; }
-            100% { background: #FF69B4; }
+
+        @keyframes softGlow {
+            0%, 100% { filter: brightness(1); }
+            50% { filter: brightness(1.05); }
         }
+
+        .container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .title {
+            position: absolute;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            z-index: 10;
+            animation: fadeIn 2s ease-in;
+        }
+
+        .title h1 {
+            font-size: 3.5em;
+            color: #FF1493;
+            text-shadow: 2px 2px 8px rgba(255, 105, 180, 0.3);
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .title p {
+            font-size: 1.2em;
+            color: #FF69B4;
+            font-style: italic;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateX(-50%) translateY(-20px); }
+            to { opacity: 1; transform: translateX(-50%) translateY(0); }
+        }
+
         .flower {
             position: absolute;
-            opacity: 0.7;
-            pointer-events: none;
-            transition: transform 1s;
+            font-size: 3em;
+            cursor: pointer;
+            user-select: none;
+            animation: float 6s ease-in-out infinite;
+            filter: drop-shadow(0 4px 8px rgba(255, 105, 180, 0.3));
+            transition: transform 0.3s ease;
         }
+
+        .flower:hover {
+            transform: scale(1.3) rotate(15deg);
+            filter: drop-shadow(0 6px 12px rgba(255, 105, 180, 0.5));
+        }
+
+        .flower:active {
+            animation: pulse 0.5s ease;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.4); }
+        }
+
+        .buttons-container {
+            position: absolute;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            z-index: 20;
+            animation: slideUp 1.5s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateX(-50%) translateY(50px); }
+            to { opacity: 1; transform: translateX(-50%) translateY(0); }
+        }
+
+        .btn {
+            padding: 15px 30px;
+            font-size: 1.1em;
+            border: 2px solid #FF69B4;
+            background: rgba(255, 255, 255, 0.9);
+            color: #FF1493;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(255, 105, 180, 0.2);
+        }
+
+        .btn:hover {
+            background: #FF69B4;
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(255, 105, 180, 0.4);
+        }
+
+        .btn:active {
+            transform: translateY(-1px);
+        }
+
         .popup {
             position: fixed;
-            bottom: -100px;
+            bottom: -150px;
             left: 50%;
             transform: translateX(-50%);
             background: white;
-            border: 1px solid #FF69B4;
-            border-radius: 5px;
-            padding: 10px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.5);
-            transition: bottom 0.5s;
-            display: none;
+            border: 3px solid #FF69B4;
+            border-radius: 20px;
+            padding: 25px 30px;
+            box-shadow: 0 10px 40px rgba(255, 105, 180, 0.3);
+            max-width: 400px;
+            z-index: 100;
+            transition: bottom 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            text-align: center;
+            animation: popupAppear 0.6s ease;
+        }
+
+        @keyframes popupAppear {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .popup.show {
+            bottom: 50px;
+        }
+
+        .popup-text {
+            font-size: 1.1em;
+            color: #FF1493;
+            line-height: 1.6;
+            font-weight: 500;
+        }
+
+        .popup-emoji {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .close-popup {
+            margin-top: 15px;
+            font-size: 0.9em;
+            color: #FF69B4;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        .stars {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .star {
+            position: absolute;
+            font-size: 1.5em;
+            opacity: 0;
+            animation: twinkle 3s ease-in-out infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 1; }
+        }
+
+        .heart-float {
+            position: absolute;
+            font-size: 2em;
+            pointer-events: none;
+            animation: heartFloat 3s ease-out forwards;
+        }
+
+        @keyframes heartFloat {
+            0% { opacity: 1; transform: translateY(0) translateX(0); }
+            100% { opacity: 0; transform: translateY(-100px) translateX(20px); }
         }
     </style>
 </head>
 <body>
-    <div class="popup" id="popup">🌸 Thank you SIE Group for all the love and support! 🌸</div>
+    <div class="container">
+        <div class="stars" id="stars"></div>
+        
+        <div class="title">
+            <h1>💖 Love for SIE 💖</h1>
+            <p>Click the flowers or buttons to discover heartfelt messages</p>
+        </div>
+
+        <div class="buttons-container">
+            <button class="btn" onclick="showMessage('appreciation')">💕 Appreciation</button>
+            <button class="btn" onclick="showMessage('strength')">💪 Our Strength</button>
+            <button class="btn" onclick="showMessage('gratitude')">🙏 Gratitude</button>
+            <button class="btn" onclick="showMessage('joy')">😊 Joy & Fun</button>
+        </div>
+
+        <div class="popup" id="popup">
+            <div class="popup-emoji" id="popupEmoji">💖</div>
+            <div class="popup-text" id="popupText">Click a flower or button!</div>
+            <div class="close-popup" onclick="closePopup()">✕ Close</div>
+        </div>
+    </div>
+
     <script>
-        const body = document.body;
-        const numberOfFlowers = 15;
-        const flowers = [];
+        const messages = {
+            appreciation: [
+                "💕 SIE, you mean the world to us! Your dedication inspires everyone around you.",
+                "🌟 We appreciate every moment, every effort, every heart you put into this group!",
+                "✨ Thank you for being absolutely amazing and making a difference!"
+            ],
+            strength: [
+                "💪 Together, SIE is unstoppable! Your collective strength is truly inspiring.",
+                "🔥 The power of this group comes from each incredible person in it!",
+                "⭐ You lift each other up and that's what makes you legendary!"
+            ],
+            gratitude: [
+                "🙏 We're so grateful for every single one of you in this beautiful group!",
+                "💗 Thank you for the memories, the laughs, and the unwavering support.",
+                "🌈 SIE makes life brighter and we're forever thankful for that!"
+            ],
+            joy: [
+                "😊 The joy and laughter you bring is absolutely contagious!",
+                "🎉 Every moment with SIE is filled with happiness and pure fun!",
+                "🌸 You make everything better, brighter, and more magical!"
+            ]
+        };
 
-        for (let i = 0; i < numberOfFlowers; i++) {
-            const flower = document.createElement('img');
-            flower.src = 'https://example.com/path/to/flower.png'; // Replace with actual flower image URL
-            flower.classList.add('flower');
-            flower.style.width = Math.random() * 50 + 20 + 'px';
-            flower.style.left = Math.random() * 100 + '%';
-            flower.style.animationDuration = Math.random() * 5 + 3 + 's';
-            body.appendChild(flower);
-            flowers.push(flower);
-
-            flower.addEventListener('click', () => {
-                const popup = document.getElementById('popup');
-                popup.style.display = 'block';
-                popup.style.bottom = '30px';
-                setTimeout(() => {
-                    popup.style.bottom = '-100px';
-                }, 2000);
-            });
+        function getRandomMessage(category) {
+            const categoryMessages = messages[category];
+            return categoryMessages[Math.floor(Math.random() * categoryMessages.length)];
         }
 
-        function animateFlowers() {
-            flowers.forEach(flower => {
-                const translateY = Math.random() * 100 - 50;
-                const rotate = Math.random() * 360;
-                flower.style.transform = `translateY(${translateY}px) rotate(${rotate}deg)`;
-            });
+        function showMessage(category) {
+            const popup = document.getElementById('popup');
+            const popupText = document.getElementById('popupText');
+            const popupEmoji = document.getElementById('popupEmoji');
+            
+            const message = getRandomMessage(category);
+            popupText.textContent = message;
+            
+            const emojis = ['💖', '🌸', '✨', '💕', '🌟'];
+            popupEmoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+            
+            popup.classList.add('show');
+            createHeartFloat(event);
         }
 
-        setInterval(animateFlowers, 2000);
+        function closePopup() {
+            document.getElementById('popup').classList.remove('show');
+        }
+
+        function createFlowers() {
+            const container = document.querySelector('.container');
+            const flowers = ['🌸', '🌺', '🌼', '🌻', '🌷', '🥀'];
+            const flowerCount = 12;
+
+            for (let i = 0; i < flowerCount; i++) {
+                const flower = document.createElement('div');
+                flower.className = 'flower';
+                flower.textContent = flowers[Math.floor(Math.random() * flowers.length)];
+                flower.style.left = Math.random() * 90 + '%';
+                flower.style.top = Math.random() * 70 + '%';
+                flower.style.animationDelay = Math.random() * 3 + 's';
+                flower.style.animationDuration = (Math.random() * 3 + 5) + 's';
+                
+                flower.addEventListener('click', function(e) {
+                    showMessage(['appreciation', 'strength', 'gratitude', 'joy'][Math.floor(Math.random() * 4)]);
+                    createHeartFloat(e);
+                });
+
+                container.appendChild(flower);
+            }
+        }
+
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            const starCount = 20;
+
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.textContent = '✨';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 3 + 's';
+                starsContainer.appendChild(star);
+            }
+        }
+
+        function createHeartFloat(e) {
+            if (!e) return;
+            const heart = document.createElement('div');
+            heart.className = 'heart-float';
+            heart.textContent = '💖';
+            heart.style.left = e.clientX + 'px';
+            heart.style.top = e.clientY + 'px';
+            document.querySelector('.container').appendChild(heart);
+            
+            setTimeout(() => heart.remove(), 3000);
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            createFlowers();
+            createStars();
+        });
+
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('btn') || e.target.classList.contains('flower')) {
+                createHeartFloat(e);
+            }
+        });
     </script>
 </body>
 </html>
