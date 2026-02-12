@@ -1,1 +1,116 @@
-<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n    <link rel="stylesheet" href="styles.css">\n    <title>Magical Interactive Page</title>\n    <style>\n        body {\n            overflow: hidden;\n        }\n        .heart {\n            position: absolute;\n            width: 50px;\n            height: 50px;\n            background: red;\n            clip-path: polygon(50% 0%, 100% 100%, 0% 100%);\n            animation: float 3s ease-in-out infinite;\n        }\n        @keyframes float {\n            0% { transform: translateY(0); }\n            50% { transform: translateY(-10px); }\n            100% { transform: translateY(0); }\n        }\n    </style>\n</head>\n<body>\n    <div class="heart" style="top: 100px; left: 50px;"></div>\n    <script>\n        // Example Particle Effect\n        document.addEventListener('mousemove', function(e) {\n            const particle = document.createElement('div');\n            particle.style.position = 'absolute';\n            particle.style.width = '10px';\n            particle.style.height = '10px';\n            particle.style.background = 'pink';\n            particle.style.borderRadius = '50%';\n            particle.style.left = e.pageX + 'px';\n            particle.style.top = e.pageY + 'px';\n            document.body.appendChild(particle);\n            setTimeout(() => particle.remove(), 1000);\n        });\n    </script>\n</body>\n</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appreciation Page</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background: linear-gradient(to right, #ffafbd, #ffc3a0);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.8;
+            animation: twinkle 1.5s infinite ease-in-out;
+        }
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.9; }
+            50% { opacity: 0.5; }
+        }
+        .heart {
+            position: absolute;
+            font-size: 24px;
+            animation: float 5s infinite;
+        }
+        @keyframes float {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0); }
+        }
+        .flower {
+            position: absolute;
+            cursor: pointer;
+            animation: bounce 2s infinite ease-in-out;
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        button {
+            margin: 20px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.8);
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        button:hover {
+            background: rgba(255, 255, 255, 1);
+        }
+    </style>
+</head>
+<body>
+    <div id="stars"></div>
+    <div id="hearts"></div>
+    <div id="flowers"></div>
+    <div>
+        <button onclick="showMessage('Appreciation', appreciationMessage)">Appreciation</button>
+        <button onclick="showMessage('Our Strength', 'Together we achieve more!')">Our Strength</button>
+        <button onclick="showMessage('Gratitude', 'Thank you for being amazing!')">Gratitude</button>
+        <button onclick="showMessage('Joy & Fun', 'Let’s keep the laughter going!')">Joy & Fun</button>
+    </div>
+    <script>
+        const appreciationMessage = "To my SIE group, I just want you to know that I really appreciate and care about all of you. I'm thankful to be part of this group. You make school, research, and everything we do more fun and meaningful. I'm happy that we support each other and grow together. I hope we keep making memories, helping each other, and reaching our goals together. You all mean a lot to me.";
+
+        // Function to create stars
+        for (let i = 0; i < 60; i++) {
+            const star = document.createElement('div');
+            star.classList.add('star');
+            const size = Math.random() * 5 + 2;
+            star.style.width = size + 'px';
+            star.style.height = size + 'px';
+            star.style.top = Math.random() * 100 + 'vh';
+            star.style.left = Math.random() * 100 + 'vw';
+            document.getElementById('stars').appendChild(star);
+        }
+
+        // Function to create hearts
+        for (let i = 0; i < 10; i++) {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.textContent = '💖';
+            heart.style.top = Math.random() * 100 + 'vh';
+            heart.style.left = Math.random() * 100 + 'vw';
+            document.getElementById('hearts').appendChild(heart);
+        }
+
+        // Function to create flowers
+        for (let i = 0; i < 6; i++) {
+            const flower = document.createElement('div');
+            flower.classList.add('flower');
+            flower.textContent = '🌼';
+            flower.style.top = Math.random() * 100 + 'vh';
+            flower.style.left = Math.random() * 100 + 'vw';
+            flower.onclick = function() {
+                alert("Particle burst!");
+            };
+            document.getElementById('flowers').appendChild(flower);
+        }
+
+        // Function to show messages
+        function showMessage(title, message) {
+            alert(title + ": " + message);
+        }
+    </script>
+</body>
+</html>
