@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Love for SIE Group</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background: linear-gradient(135deg, #FFB6C1, #FF69B4);
+            animation: backgroundAnimation 10s infinite alternate;
+            font-family: Arial, sans-serif;
+            color: #333;
+        }
+        @keyframes backgroundAnimation {
+            0% { background: #FFB6C1; }
+            100% { background: #FF69B4; }
+        }
+        .flower {
+            position: absolute;
+            opacity: 0.7;
+            pointer-events: none;
+            transition: transform 1s;
+        }
+        .popup {
+            position: fixed;
+            bottom: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            border: 1px solid #FF69B4;
+            border-radius: 5px;
+            padding: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+            transition: bottom 0.5s;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="popup" id="popup">🌸 Thank you SIE Group for all the love and support! 🌸</div>
+    <script>
+        const body = document.body;
+        const numberOfFlowers = 15;
+        const flowers = [];
+
+        for (let i = 0; i < numberOfFlowers; i++) {
+            const flower = document.createElement('img');
+            flower.src = 'https://example.com/path/to/flower.png'; // Replace with actual flower image URL
+            flower.classList.add('flower');
+            flower.style.width = Math.random() * 50 + 20 + 'px';
+            flower.style.left = Math.random() * 100 + '%';
+            flower.style.animationDuration = Math.random() * 5 + 3 + 's';
+            body.appendChild(flower);
+            flowers.push(flower);
+
+            flower.addEventListener('click', () => {
+                const popup = document.getElementById('popup');
+                popup.style.display = 'block';
+                popup.style.bottom = '30px';
+                setTimeout(() => {
+                    popup.style.bottom = '-100px';
+                }, 2000);
+            });
+        }
+
+        function animateFlowers() {
+            flowers.forEach(flower => {
+                const translateY = Math.random() * 100 - 50;
+                const rotate = Math.random() * 360;
+                flower.style.transform = `translateY(${translateY}px) rotate(${rotate}deg)`;
+            });
+        }
+
+        setInterval(animateFlowers, 2000);
+    </script>
+</body>
+</html>
