@@ -3,84 +3,410 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive Web App</title>
+    <title>Love for SIE</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
+        * {
             margin: 0;
-            padding: 20px;
-            overflow: hidden;
+            padding: 0;
+            box-sizing: border-box;
         }
+
+        body {
+            width: 100%;
+            height: 100vh;
+            background: linear-gradient(-45deg, #FFB6D9, #FFD4E5, #FFC0D9, #FFE4E1);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .stars {
+            position: fixed;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 0 3px rgba(255, 255, 255, 0.8);
+            animation: twinkle 3s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
         .container {
             position: relative;
+            width: 90%;
             max-width: 800px;
-            margin: auto;
-            background: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            z-index: 10;
         }
+
         h1 {
-            text-align: center;
+            font-size: 48px;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            margin-bottom: 30px;
+            animation: fadeInDown 1s ease-out;
         }
-        button {
-            margin: 10px;
-            padding: 10px 20px;
-            font-size: 16px;
-            border: none;
-            border-radius: 5px;
+
+        .flower {
+            position: fixed;
+            font-size: 40px;
             cursor: pointer;
-            transition: background-color 0.3s;
+            user-select: none;
+            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
+            transition: transform 0.3s ease;
         }
-        button:hover {
-            background-color: #007BFF;
-            color: white;
+
+        .flower:hover {
+            transform: scale(1.3) rotate(10deg);
         }
-        .decorative {
-            position: absolute;
-            width: 50px;
-            height: 50px;
-            background-color: rgba(255, 165, 0, 0.7);
-            border-radius: 50%;
-            animation: float 3s ease-in-out infinite;
+
+        .flower:active {
+            animation: pop 0.5s ease-out;
         }
-        @keyframes float {
-            0% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
-            100% { transform: translateY(0); }
+
+        @keyframes pop {
+            0% { transform: scale(1.3); }
+            100% { transform: scale(1.5); }
         }
-        .appreciation-message {
-            display: none;
-            text-align: center;
-            margin-top: 20px;
-            color: #2f855a;
-            font-size: 20px;
+
+        .button-group {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            animation: fadeInUp 1.2s ease-out;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            font-size: 16px;
             font-weight: bold;
+            border: none;
+            border-radius: 50px;
+            background: linear-gradient(135deg, #FF69B4, #FFB6D9);
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 105, 180, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(255, 105, 180, 0.6);
+        }
+
+        .btn:active {
+            transform: translateY(-1px);
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            max-width: 500px;
+            animation: popupAppear 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+            text-align: center;
+        }
+
+        @keyframes popupAppear {
+            to {
+                transform: translate(-50%, -50%) scale(1);
+            }
+        }
+
+        .popup.hide {
+            animation: popupDisappear 0.5s ease-out forwards;
+        }
+
+        @keyframes popupDisappear {
+            to {
+                transform: translate(-50%, -50%) scale(0);
+                opacity: 0;
+            }
+        }
+
+        .popup h2 {
+            color: #FF69B4;
+            margin-bottom: 15px;
+            font-size: 24px;
+        }
+
+        .popup p {
+            color: #333;
+            line-height: 1.8;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .close-btn {
+            background: #FF69B4;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .close-btn:hover {
+            background: #FF1493;
+            transform: scale(1.05);
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: 999;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .overlay.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .heart {
+            position: fixed;
+            font-size: 20px;
+            animation: floatUp 3s ease-out forwards;
+            pointer-events: none;
+        }
+
+        @keyframes floatUp {
+            0% {
+                opacity: 1;
+                transform: translateY(0) translateX(0) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-100px) translateX(50px) scale(0);
+            }
+        }
+
+        .sparkle {
+            position: fixed;
+            font-size: 12px;
+            animation: sparkleFloat 2s ease-out forwards;
+            pointer-events: none;
+        }
+
+        @keyframes sparkleFloat {
+            0% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-80px) scale(0);
+            }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
     </style>
 </head>
 <body>
+    <div class="overlay" id="overlay"></div>
+
     <div class="container">
-        <h1>Welcome to Our Interactive Web App!</h1>
-        <button id="appreciateButton">Appreciate SIE Group!</button>
-        <div class="appreciation-message" id="appreciationMessage">
-            Thank you, SIE Group! Your efforts are truly appreciated!
+        <h1>💕 For SIE 💕</h1>
+        
+        <div class="button-group">
+            <button class="btn" onclick="showMessage('appreciation')">Appreciation</button>
+            <button class="btn" onclick="showMessage('strength')">Our Strength</button>
+            <button class="btn" onclick="showMessage('gratitude')">Gratitude</button>
+            <button class="btn" onclick="showMessage('joy')">Joy & Fun</button>
         </div>
     </div>
-    <div class="decorative" style="top: 20px; left: 20px;"></div>
-    <div class="decorative" style="top: 100px; right: 20px;"></div>
-    <script>
-        const button = document.getElementById('appreciateButton');
-        const message = document.getElementById('appreciationMessage');
 
-        button.onclick = () => {
-            message.style.display = 'block';
-            button.disabled = true;
-            setTimeout(() => {
-                button.disabled = false;
-            }, 3000);
+    <div class="popup" id="popup">
+        <h2 id="popupTitle">Message</h2>
+        <p id="popupMessage">This is a message for you!</p>
+        <button class="close-btn" onclick="closePopup()">Close</button>
+    </div>
+
+    <script>
+        // Message content
+        const messages = {
+            appreciation: {
+                title: "To my SIE Group 💖",
+                text: "To my SIE group, I just want you to know that I really appreciate and care about all of you. I'm thankful to be part of this group. You make school, research, and everything we do more fun and meaningful. I'm happy that we support each other and grow together. I hope we keep making memories, helping each other, and reaching our goals together. You all mean a lot to me."
+            },
+            strength: {
+                title: "Our Strength 💪",
+                text: "Together, we are stronger. Each of you brings unique talents and perspectives that make our group special. Your dedication, support, and collaboration make us unstoppable. Thank you for being amazing teammates and friends!"
+            },
+            gratitude: {
+                title: "Gratitude 🙏",
+                text: "I'm so grateful for every moment we share. Whether it's late-night study sessions, celebrations, or just being there for each other, you've made my experience unforgettable. Thank you for being the best group ever!"
+            },
+            joy: {
+                title: "Joy & Fun 🎉",
+                text: "The laughs, the inside jokes, the random adventures - these are the moments that make life beautiful. Thank you for bringing so much joy and fun into my life. Let's keep creating amazing memories together!"
+            }
         };
+
+        // Create random stars
+        function createStars() {
+            for (let i = 0; i < 50; i++) {
+                const star = document.createElement('div');
+                star.className = 'stars';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 3 + 's';
+                document.body.appendChild(star);
+            }
+        }
+
+        // Create floating flowers
+        function createFlowers() {
+            const flowers = ['🌸', '🌺', '🌼', '🌻', '🌷', '🥀'];
+            const positions = [
+                { x: 10, y: 10 }, { x: 90, y: 15 }, { x: 5, y: 50 },
+                { x: 95, y: 60 }, { x: 15, y: 85 }, { x: 85, y: 90 }
+            ];
+
+            positions.forEach((pos, idx) => {
+                const flower = document.createElement('div');
+                flower.className = 'flower';
+                flower.innerHTML = flowers[idx];
+                flower.style.left = pos.x + '%';
+                flower.style.top = pos.y + '%';
+                flower.style.animation = `float ${3 + idx}s ease-in-out infinite`;
+                flower.onclick = (e) => {
+                    e.stopPropagation();
+                    createFloatingHeart(e.clientX, e.clientY);
+                    showRandomMessage();
+                };
+                document.body.appendChild(flower);
+            });
+        }
+
+        // Show message popup
+        function showMessage(type) {
+            const msg = messages[type];
+            document.getElementById('popupTitle').innerText = msg.title;
+            document.getElementById('popupMessage').innerText = msg.text;
+            
+            const popup = document.getElementById('popup');
+            popup.classList.remove('hide');
+            document.getElementById('overlay').classList.add('show');
+            
+            // Create floating hearts and sparkles
+            for (let i = 0; i < 5; i++) {
+                setTimeout(() => {
+                    createFloatingHeart(window.innerWidth / 2 + (Math.random() - 0.5) * 100, window.innerHeight / 2);
+                    createSparkle(window.innerWidth / 2 + (Math.random() - 0.5) * 100, window.innerHeight / 2);
+                }, i * 100);
+            }
+        }
+
+        // Close popup
+        function closePopup() {
+            const popup = document.getElementById('popup');
+            popup.classList.add('hide');
+            document.getElementById('overlay').classList.remove('show');
+        }
+
+        // Create floating heart effect
+        function createFloatingHeart(x, y) {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.innerHTML = '❤️';
+            heart.style.left = x + 'px';
+            heart.style.top = y + 'px';
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 3000);
+        }
+
+        // Create sparkle effect
+        function createSparkle(x, y) {
+            const sparkle = document.createElement('div');
+            sparkle.className = 'sparkle';
+            sparkle.innerHTML = '✨';
+            sparkle.style.left = x + 'px';
+            sparkle.style.top = y + 'px';
+            document.body.appendChild(sparkle);
+            setTimeout(() => sparkle.remove(), 2000);
+        }
+
+        // Show random message
+        function showRandomMessage() {
+            const keys = Object.keys(messages);
+            const randomKey = keys[Math.floor(Math.random() * keys.length)];
+            showMessage(randomKey);
+        }
+
+        // Close popup when clicking overlay
+        document.getElementById('overlay').addEventListener('click', closePopup);
+
+        // Initialize
+        createStars();
+        createFlowers();
     </script>
 </body>
 </html>
