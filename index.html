@@ -3,60 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Love for SIE</title>
+    <title>Interactive Web App</title>
     <style>
         body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
             margin: 0;
-            height: 100vh;
-            background: linear-gradient(135deg, #ffafbd, #ffc3a0);
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            padding: 20px;
             overflow: hidden;
         }
-        .floating {
+        .container {
+            position: relative;
+            max-width: 800px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        button {
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #007BFF;
+            color: white;
+        }
+        .decorative {
             position: absolute;
-            animation: float 5s ease-in-out infinite;
+            width: 50px;
+            height: 50px;
+            background-color: rgba(255, 165, 0, 0.7);
+            border-radius: 50%;
+            animation: float 3s ease-in-out infinite;
         }
         @keyframes float {
             0% { transform: translateY(0); }
             50% { transform: translateY(-20px); }
             100% { transform: translateY(0); }
         }
-        .button {
-            padding: 15px 30px;
+        .appreciation-message {
+            display: none;
+            text-align: center;
+            margin-top: 20px;
+            color: #2f855a;
             font-size: 20px;
-            background-color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
+            font-weight: bold;
         }
-        .button:hover {
-            background-color: #ffeaa7;
-        }
-        .hearts { color: red; }
-        .stars { color: yellow; }
     </style>
 </head>
 <body>
-    <div class="floating">
-        <div class="hearts">❤️</div>
-        <div class="stars">⭐</div>
+    <div class="container">
+        <h1>Welcome to Our Interactive Web App!</h1>
+        <button id="appreciateButton">Appreciate SIE Group!</button>
+        <div class="appreciation-message" id="appreciationMessage">
+            Thank you, SIE Group! Your efforts are truly appreciated!
+        </div>
     </div>
-    <button class="button" onclick="alert('You are appreciated, SIE Group!')">Click me!</button>
+    <div class="decorative" style="top: 20px; left: 20px;"></div>
+    <div class="decorative" style="top: 100px; right: 20px;"></div>
     <script>
-        // Create floating flowers
-        function createFlower() {
-            const flower = document.createElement('div');
-            flower.innerHTML = '🌸';
-            flower.classList.add('floating');
-            flower.style.fontSize = Math.random() * 50 + 'px';
-            flower.style.left = Math.random() * 100 + 'vw';
-            document.body.appendChild(flower);
-            setTimeout(() => flower.remove(), 5000);
-        }
-        setInterval(createFlower, 1000);
+        const button = document.getElementById('appreciateButton');
+        const message = document.getElementById('appreciationMessage');
+
+        button.onclick = () => {
+            message.style.display = 'block';
+            button.disabled = true;
+            setTimeout(() => {
+                button.disabled = false;
+            }, 3000);
+        };
     </script>
 </body>
 </html>
